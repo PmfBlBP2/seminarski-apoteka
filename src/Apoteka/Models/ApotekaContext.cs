@@ -125,7 +125,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.LijekId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Iznos).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.Iznos).HasColumnType("decimal(10,2)");
 
                 entity.Property(e => e.Kolicina).HasColumnType("int(11)");
 
@@ -151,7 +151,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.LijekId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Cijena).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.Cijena).HasColumnType("decimal(10,2)");
 
                 entity.Property(e => e.DobavljacId).HasColumnType("int(11)");
 
@@ -218,7 +218,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.DatumIzdavanja).HasColumnType("date");
 
-                entity.Property(e => e.Iznos).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.Iznos).HasColumnType("decimal(10,2)");
             });
         }
     }

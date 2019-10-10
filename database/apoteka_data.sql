@@ -108,7 +108,7 @@ CREATE TABLE `kupovina` (
   `RacunId` int(11) NOT NULL,
   `LijekId` int(11) NOT NULL,
   `Kolicina` int(11) DEFAULT NULL,
-  `Iznos` decimal(10,0) DEFAULT NULL,
+  `Iznos` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`RacunId`,`LijekId`),
   KEY `fk_kupovina_racun1_idx` (`RacunId`),
   KEY `fk_kupovina_lijek1_idx` (`LijekId`),
@@ -138,12 +138,12 @@ CREATE TABLE `lijek` (
   `DobavljacId` int(11) NOT NULL,
   `Naziv` varchar(45) DEFAULT NULL,
   `NaRecept` tinyint(4) DEFAULT NULL,
-  `Cijena` decimal(10,0) DEFAULT NULL,
+  `Cijena` decimal(10,2) DEFAULT NULL,
   `Kolicina` int(11) DEFAULT NULL,
   PRIMARY KEY (`LijekId`),
   KEY `fk_lijek_dobavljac1_idx` (`DobavljacId`),
   CONSTRAINT `fk_lijek_dobavljac1` FOREIGN KEY (`DobavljacId`) REFERENCES `dobavljac` (`DobavljacId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `lijek` (
 
 LOCK TABLES `lijek` WRITE;
 /*!40000 ALTER TABLE `lijek` DISABLE KEYS */;
-INSERT INTO `lijek` VALUES (1,1,'Otol H',1,10,50),(2,3,'Pholcodin',1,18,30),(3,4,'Chloramphenicol',1,4,50),(4,4,'Pantenol',0,5,50),(5,2,'Probiotik',0,16,30),(6,1,'Ibuprofen',1,6,50),(7,3,'Caffetin',0,3,50);
+INSERT INTO `lijek` VALUES (1,1,'Otol H',1,10.00,50),(2,3,'Pholcodin',1,18.00,30),(3,4,'Chloramphenicol',1,4.00,50),(4,4,'Pantenol',0,5.00,50),(5,2,'Probiotik',0,16.00,30),(6,1,'Ibuprofen',1,6.00,50),(7,3,'Caffetin',0,3.00,50),(8,3,'Paracetamol',0,3.00,20);
 /*!40000 ALTER TABLE `lijek` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +196,7 @@ DROP TABLE IF EXISTS `racun`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `racun` (
   `RacunId` int(11) NOT NULL AUTO_INCREMENT,
-  `Iznos` decimal(10,0) DEFAULT NULL,
+  `Iznos` decimal(10,2) DEFAULT NULL,
   `DatumIzdavanja` date DEFAULT NULL,
   PRIMARY KEY (`RacunId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -220,4 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-10 10:41:04
+-- Dump completed on 2019-10-10 14:23:15

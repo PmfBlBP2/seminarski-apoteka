@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `apoteka`.`lijek` (
   `DobavljacId` INT(11) NOT NULL,
   `Naziv` VARCHAR(45) NULL DEFAULT NULL,
   `NaRecept` TINYINT(4) NULL DEFAULT NULL,
-  `Cijena` DECIMAL(10,0) NULL DEFAULT NULL,
+  `Cijena` DECIMAL(10,2) NULL DEFAULT NULL,
   `Kolicina` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`LijekId`),
   INDEX `fk_lijek_dobavljac1_idx` (`DobavljacId` ASC),
@@ -105,7 +105,7 @@ DROP TABLE IF EXISTS `apoteka`.`racun` ;
 
 CREATE TABLE IF NOT EXISTS `apoteka`.`racun` (
   `RacunId` INT(11) NOT NULL AUTO_INCREMENT,
-  `Iznos` DECIMAL(10,0) NULL DEFAULT NULL,
+  `Iznos` DECIMAL(10,2) NULL DEFAULT NULL,
   `DatumIzdavanja` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`RacunId`))
 ENGINE = InnoDB
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `apoteka`.`kupovina` (
   `RacunId` INT(11) NOT NULL,
   `LijekId` INT(11) NOT NULL,
   `Kolicina` INT(11) NULL DEFAULT NULL,
-  `Iznos` DECIMAL(10,0) NULL DEFAULT NULL,
+  `Iznos` DECIMAL(10,2) NULL DEFAULT NULL,
   INDEX `fk_kupovina_racun1_idx` (`RacunId` ASC),
   INDEX `fk_kupovina_lijek1_idx` (`LijekId` ASC),
   PRIMARY KEY (`RacunId`, `LijekId`),
