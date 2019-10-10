@@ -124,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `apoteka`.`kupovina` (
   `Iznos` DECIMAL(10,0) NULL DEFAULT NULL,
   INDEX `fk_kupovina_racun1_idx` (`RacunId` ASC),
   INDEX `fk_kupovina_lijek1_idx` (`LijekId` ASC),
+  PRIMARY KEY (`RacunId`, `LijekId`),
   CONSTRAINT `fk_kupovina_lijek1`
     FOREIGN KEY (`LijekId`)
     REFERENCES `apoteka`.`lijek` (`LijekId`)
