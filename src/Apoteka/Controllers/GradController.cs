@@ -9,23 +9,23 @@ using Apoteka.Models;
 
 namespace Apoteka.Controllers
 {
-    public class LijekController : Controller
+    public class GradController : Controller
     {
         private readonly ApotekaContext _context;
 
-        public LijekController(ApotekaContext context)
+        public GradController(ApotekaContext context)
         {
             _context = context;
         }
 
-        // GET: Lijek
+        // GET: Grad
         public async Task<IActionResult> Index()
         {
-            var apotekaContext = _context.Lijek.Include(l => l.Dobavljac);
+            var apotekaContext = _context.Grad.Include(g => g.Drzava);
             return View(await apotekaContext.ToListAsync());
         }
 
-        // GET: Lijek/Details/5
+        // GET: Grad/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +33,42 @@ namespace Apoteka.Controllers
                 return NotFound();
             }
 
-            var lijek = await _context.Lijek
-                .Include(l => l.Dobavljac)
-                .FirstOrDefaultAsync(m => m.LijekId == id);
-            if (lijek == null)
+            var grad = await _context.Grad
+                .Include(g => g.Drzava)
+                .FirstOrDefaultAsync(m => m.GradId == id);
+            if (grad == null)
             {
                 return NotFound();
             }
 
-            return View(lijek);
+            return View(grad);
         }
 
-        // GET: Lijek/Create
+        // GET: Grad/Create
         public IActionResult Create()
         {
-            ViewData["DobavljacId"] = new SelectList(_context.Dobavljac, "DobavljacId", "Naziv");
+            ViewData["DrzavaId"] = new SelectList(_context.Drzava, "DrzavaId", "Naziv");
             return View();
         }
 
-        // POST: Lijek/Create
+        // POST: Grad/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LijekId,DobavljacId,Naziv,NaRecept,Cijena,Kolicina")] Lijek lijek)
+        public async Task<IActionResult> Create([Bind("GradId,DrzavaId,Naziv,PostanskiBroj")] Grad grad)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(lijek);
+                _context.Add(grad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DobavljacId"] = new SelectList(_context.Dobavljac, "DobavljacId", "Naziv", lijek.DobavljacId);
-            return View(lijek);
+            ViewData["DrzavaId"] = new SelectList(_context.Drzava, "DrzavaId", "Naziv", grad.DrzavaId);
+            return View(grad);
         }
 
-        // GET: Lijek/Edit/5
+        // GET: Grad/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +76,23 @@ namespace Apoteka.Controllers
                 return NotFound();
             }
 
-            var lijek = await _context.Lijek.FindAsync(id);
-            if (lijek == null)
+            var grad = await _context.Grad.FindAsync(id);
+            if (grad == null)
             {
                 return NotFound();
             }
-            ViewData["DobavljacId"] = new SelectList(_context.Dobavljac, "DobavljacId", "Naziv", lijek.DobavljacId);
-            return View(lijek);
+            ViewData["DrzavaId"] = new SelectList(_context.Drzava, "DrzavaId", "Naziv", grad.DrzavaId);
+            return View(grad);
         }
 
-        // POST: Lijek/Edit/5
+        // POST: Grad/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LijekId,DobavljacId,Naziv,NaRecept,Cijena,Kolicina")] Lijek lijek)
+        public async Task<IActionResult> Edit(int id, [Bind("GradId,DrzavaId,Naziv,PostanskiBroj")] Grad grad)
         {
-            if (id != lijek.LijekId)
+            if (id != grad.GradId)
             {
                 return NotFound();
             }
@@ -101,12 +101,12 @@ namespace Apoteka.Controllers
             {
                 try
                 {
-                    _context.Update(lijek);
+                    _context.Update(grad);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LijekExists(lijek.LijekId))
+                    if (!GradExists(grad.GradId))
                     {
                         return NotFound();
                     }
@@ -117,11 +117,11 @@ namespace Apoteka.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DobavljacId"] = new SelectList(_context.Dobavljac, "DobavljacId", "Naziv", lijek.DobavljacId);
-            return View(lijek);
+            ViewData["DrzavaId"] = new SelectList(_context.Drzava, "DrzavaId", "Naziv", grad.DrzavaId);
+            return View(grad);
         }
 
-        // GET: Lijek/Delete/5
+        // GET: Grad/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +129,31 @@ namespace Apoteka.Controllers
                 return NotFound();
             }
 
-            var lijek = await _context.Lijek
-                .Include(l => l.Dobavljac)
-                .FirstOrDefaultAsync(m => m.LijekId == id);
-            if (lijek == null)
+            var grad = await _context.Grad
+                .Include(g => g.Drzava)
+                .FirstOrDefaultAsync(m => m.GradId == id);
+            if (grad == null)
             {
                 return NotFound();
             }
 
-            return View(lijek);
+            return View(grad);
         }
 
-        // POST: Lijek/Delete/5
+        // POST: Grad/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var lijek = await _context.Lijek.FindAsync(id);
-            _context.Lijek.Remove(lijek);
+            var grad = await _context.Grad.FindAsync(id);
+            _context.Grad.Remove(grad);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LijekExists(int id)
+        private bool GradExists(int id)
         {
-            return _context.Lijek.Any(e => e.LijekId == id);
+            return _context.Grad.Any(e => e.GradId == id);
         }
     }
 }

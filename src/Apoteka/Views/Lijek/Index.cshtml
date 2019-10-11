@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lijekovi</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -36,9 +36,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Naziv)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NaRecept)
-            </td>
+            @if (item.NaRecept == 0)
+            {
+                <td>
+                    Nije
+                </td>
+            }
+            else
+            {
+                <td>
+                    Jeste
+                </td>
+            }
+
             <td>
                 @Html.DisplayFor(modelItem => item.Cijena)
             </td>

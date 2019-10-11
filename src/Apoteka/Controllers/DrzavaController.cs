@@ -9,23 +9,22 @@ using Apoteka.Models;
 
 namespace Apoteka.Controllers
 {
-    public class LijekController : Controller
+    public class DrzavaController : Controller
     {
         private readonly ApotekaContext _context;
 
-        public LijekController(ApotekaContext context)
+        public DrzavaController(ApotekaContext context)
         {
             _context = context;
         }
 
-        // GET: Lijek
+        // GET: Drzava
         public async Task<IActionResult> Index()
         {
-            var apotekaContext = _context.Lijek.Include(l => l.Dobavljac);
-            return View(await apotekaContext.ToListAsync());
+            return View(await _context.Drzava.ToListAsync());
         }
 
-        // GET: Lijek/Details/5
+        // GET: Drzava/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +32,39 @@ namespace Apoteka.Controllers
                 return NotFound();
             }
 
-            var lijek = await _context.Lijek
-                .Include(l => l.Dobavljac)
-                .FirstOrDefaultAsync(m => m.LijekId == id);
-            if (lijek == null)
+            var drzava = await _context.Drzava
+                .FirstOrDefaultAsync(m => m.DrzavaId == id);
+            if (drzava == null)
             {
                 return NotFound();
             }
 
-            return View(lijek);
+            return View(drzava);
         }
 
-        // GET: Lijek/Create
+        // GET: Drzava/Create
         public IActionResult Create()
         {
-            ViewData["DobavljacId"] = new SelectList(_context.Dobavljac, "DobavljacId", "Naziv");
             return View();
         }
 
-        // POST: Lijek/Create
+        // POST: Drzava/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LijekId,DobavljacId,Naziv,NaRecept,Cijena,Kolicina")] Lijek lijek)
+        public async Task<IActionResult> Create([Bind("DrzavaId,Naziv")] Drzava drzava)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(lijek);
+                _context.Add(drzava);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DobavljacId"] = new SelectList(_context.Dobavljac, "DobavljacId", "Naziv", lijek.DobavljacId);
-            return View(lijek);
+            return View(drzava);
         }
 
-        // GET: Lijek/Edit/5
+        // GET: Drzava/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +72,22 @@ namespace Apoteka.Controllers
                 return NotFound();
             }
 
-            var lijek = await _context.Lijek.FindAsync(id);
-            if (lijek == null)
+            var drzava = await _context.Drzava.FindAsync(id);
+            if (drzava == null)
             {
                 return NotFound();
             }
-            ViewData["DobavljacId"] = new SelectList(_context.Dobavljac, "DobavljacId", "Naziv", lijek.DobavljacId);
-            return View(lijek);
+            return View(drzava);
         }
 
-        // POST: Lijek/Edit/5
+        // POST: Drzava/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LijekId,DobavljacId,Naziv,NaRecept,Cijena,Kolicina")] Lijek lijek)
+        public async Task<IActionResult> Edit(int id, [Bind("DrzavaId,Naziv")] Drzava drzava)
         {
-            if (id != lijek.LijekId)
+            if (id != drzava.DrzavaId)
             {
                 return NotFound();
             }
@@ -101,12 +96,12 @@ namespace Apoteka.Controllers
             {
                 try
                 {
-                    _context.Update(lijek);
+                    _context.Update(drzava);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LijekExists(lijek.LijekId))
+                    if (!DrzavaExists(drzava.DrzavaId))
                     {
                         return NotFound();
                     }
@@ -117,11 +112,10 @@ namespace Apoteka.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DobavljacId"] = new SelectList(_context.Dobavljac, "DobavljacId", "Naziv", lijek.DobavljacId);
-            return View(lijek);
+            return View(drzava);
         }
 
-        // GET: Lijek/Delete/5
+        // GET: Drzava/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +123,30 @@ namespace Apoteka.Controllers
                 return NotFound();
             }
 
-            var lijek = await _context.Lijek
-                .Include(l => l.Dobavljac)
-                .FirstOrDefaultAsync(m => m.LijekId == id);
-            if (lijek == null)
+            var drzava = await _context.Drzava
+                .FirstOrDefaultAsync(m => m.DrzavaId == id);
+            if (drzava == null)
             {
                 return NotFound();
             }
 
-            return View(lijek);
+            return View(drzava);
         }
 
-        // POST: Lijek/Delete/5
+        // POST: Drzava/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var lijek = await _context.Lijek.FindAsync(id);
-            _context.Lijek.Remove(lijek);
+            var drzava = await _context.Drzava.FindAsync(id);
+            _context.Drzava.Remove(drzava);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LijekExists(int id)
+        private bool DrzavaExists(int id)
         {
-            return _context.Lijek.Any(e => e.LijekId == id);
+            return _context.Drzava.Any(e => e.DrzavaId == id);
         }
     }
 }
