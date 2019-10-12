@@ -21,8 +21,7 @@ namespace Apoteka.Controllers
         // GET: Racun
         public async Task<IActionResult> Index()
         {
-            var apotekaContext = _context.Racun.Include(r => r.Osiguranik);
-            return View(await apotekaContext.ToListAsync());
+            return View(await _context.Racun.ToListAsync());
         }
 
         // GET: Racun/Details/5
@@ -34,7 +33,6 @@ namespace Apoteka.Controllers
             }
 
             var racun = await _context.Racun
-                .Include(r => r.Osiguranik)
                 .FirstOrDefaultAsync(m => m.RacunId == id);
             if (racun == null)
             {
@@ -47,7 +45,6 @@ namespace Apoteka.Controllers
         // GET: Racun/Create
         public IActionResult Create()
         {
-            ViewData["OsiguranikId"] = new SelectList(_context.Osiguranik, "OsiguranikId", "Jmbg");
             return View();
         }
 
@@ -56,15 +53,16 @@ namespace Apoteka.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RacunId,OsiguranikId,Iznos,DatumIzdavanja")] Racun racun)
+        public async Task<IActionResult> Create([Bind("RacunId,Iznos,DatumIzdavanja,Jmbg")] Racun racun)
         {
             if (ModelState.IsValid)
             {
+                racun.Iznos = 0;
+                racun.DatumIzdavanja = DateTime.Today;
                 _context.Add(racun);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OsiguranikId"] = new SelectList(_context.Osiguranik, "OsiguranikId", "Jmbg", racun.OsiguranikId);
             return View(racun);
         }
 
@@ -81,7 +79,6 @@ namespace Apoteka.Controllers
             {
                 return NotFound();
             }
-            ViewData["OsiguranikId"] = new SelectList(_context.Osiguranik, "OsiguranikId", "OsiguranikId", racun.OsiguranikId);
             return View(racun);
         }
 
@@ -90,7 +87,7 @@ namespace Apoteka.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RacunId,OsiguranikId,Iznos,DatumIzdavanja")] Racun racun)
+        public async Task<IActionResult> Edit(int id, [Bind("RacunId,Iznos,DatumIzdavanja,Jmbg")] Racun racun)
         {
             if (id != racun.RacunId)
             {
@@ -117,7 +114,6 @@ namespace Apoteka.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OsiguranikId"] = new SelectList(_context.Osiguranik, "OsiguranikId", "OsiguranikId", racun.OsiguranikId);
             return View(racun);
         }
 
@@ -130,7 +126,6 @@ namespace Apoteka.Controllers
             }
 
             var racun = await _context.Racun
-                .Include(r => r.Osiguranik)
                 .FirstOrDefaultAsync(m => m.RacunId == id);
             if (racun == null)
             {

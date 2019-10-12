@@ -13,10 +13,10 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="OsiguranikId" class="control-label">JMBG osiguranika</label>
-                <select asp-for="OsiguranikId" class ="form-control" asp-items="ViewBag.OsiguranikId"></select>
+                <label asp-for="Jmbg" class="control-label">JMBG </label>
+                <input asp-for="Jmbg" class="form-control" />
+                <span asp-validation-for="Jmbg" class="text-danger"></span>
             </div>
-            
             <div class="form-group">
                 <input type="submit" value="Kreiraj novi racun" class="btn btn-primary" />
             </div>
