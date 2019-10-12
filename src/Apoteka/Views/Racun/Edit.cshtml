@@ -1,0 +1,44 @@
+﻿@model Apoteka.Models.Racun
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Racun</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RacunId" />
+            <div class="form-group">
+                <label asp-for="OsiguranikId" class="control-label"></label>
+                <select asp-for="OsiguranikId" class="form-control" asp-items="ViewBag.OsiguranikId"></select>
+                <span asp-validation-for="OsiguranikId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Iznos" class="control-label"></label>
+                <input asp-for="Iznos" class="form-control" />
+                <span asp-validation-for="Iznos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatumIzdavanja" class="control-label"></label>
+                <input asp-for="DatumIzdavanja" class="form-control" />
+                <span asp-validation-for="DatumIzdavanja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

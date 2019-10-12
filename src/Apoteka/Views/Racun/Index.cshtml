@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Apoteka.Models.Racun>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Iznos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumIzdavanja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Osiguranik)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Iznos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumIzdavanja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Osiguranik.OsiguranikId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RacunId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RacunId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RacunId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
