@@ -11,9 +11,11 @@ namespace Apoteka.Models
         }
 
         public int RacunId { get; set; }
+        public int OsiguranikId { get; set; }
         public decimal? Iznos { get; set; }
         public DateTime? DatumIzdavanja { get; set; }
 
+        public virtual Osiguranik Osiguranik { get; set; }
         public virtual ICollection<Kupovina> Kupovina { get; set; }
     }
 }

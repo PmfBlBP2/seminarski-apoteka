@@ -32,7 +32,7 @@ CREATE TABLE `dobavljac` (
   PRIMARY KEY (`DobavljacId`),
   KEY `fk_dobavljac_grad1_idx` (`GradId`),
   CONSTRAINT `fk_dobavljac_grad1` FOREIGN KEY (`GradId`) REFERENCES `grad` (`GradId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +56,7 @@ CREATE TABLE `drzava` (
   `DrzavaId` int(11) NOT NULL AUTO_INCREMENT,
   `Naziv` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`DrzavaId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `drzava` (
 
 LOCK TABLES `drzava` WRITE;
 /*!40000 ALTER TABLE `drzava` DISABLE KEYS */;
-INSERT INTO `drzava` VALUES (1,'BiH'),(2,'Srbija'),(3,'Makedonija'),(4,'Hrvatska'),(5,'Slovenija');
+INSERT INTO `drzava` VALUES (1,'BiH'),(2,'Srbija'),(3,'Makedonija'),(4,'Hrvatska'),(5,'Slovenija'),(6,'Spanija');
 /*!40000 ALTER TABLE `drzava` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `grad` (
   PRIMARY KEY (`GradId`),
   KEY `fk_grad_drzava1_idx` (`DrzavaId`),
   CONSTRAINT `fk_grad_drzava1` FOREIGN KEY (`DrzavaId`) REFERENCES `drzava` (`DrzavaId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `grad` (
 
 LOCK TABLES `grad` WRITE;
 /*!40000 ALTER TABLE `grad` DISABLE KEYS */;
-INSERT INTO `grad` VALUES (1,1,'Banja Luka','78000'),(2,1,'Sarajevo','71000'),(3,1,'Mostar',NULL),(4,2,'Beograd',NULL),(5,3,'Skoplje',NULL);
+INSERT INTO `grad` VALUES (1,1,'Banja Luka','78000'),(2,1,'Sarajevo','71000'),(3,1,'Mostar',NULL),(4,2,'Beograd',NULL),(5,3,'Skoplje',NULL),(6,2,'Novi Sad',NULL);
 /*!40000 ALTER TABLE `grad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `lijek` (
   PRIMARY KEY (`LijekId`),
   KEY `fk_lijek_dobavljac1_idx` (`DobavljacId`),
   CONSTRAINT `fk_lijek_dobavljac1` FOREIGN KEY (`DobavljacId`) REFERENCES `dobavljac` (`DobavljacId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `lijek` (
 
 LOCK TABLES `lijek` WRITE;
 /*!40000 ALTER TABLE `lijek` DISABLE KEYS */;
-INSERT INTO `lijek` VALUES (1,1,'Otol H',1,10.00,50),(2,3,'Pholcodin',1,18.00,30),(3,4,'Chloramphenicol',1,4.00,50),(4,4,'Pantenol',0,5.00,50),(5,2,'Probiotik',0,16.00,30),(6,1,'Ibuprofen',1,6.00,50),(7,3,'Caffetin',0,3.00,50),(8,3,'Paracetamol',0,3.00,20);
+INSERT INTO `lijek` VALUES (1,1,'Otol H',1,10.70,50),(2,3,'Pholcodin',1,18.90,30),(3,4,'Chloramphenicol',1,4.00,50),(4,4,'Pantenol',0,5.40,50),(5,2,'Probiotik',0,16.00,30),(6,1,'Ibuprofen',1,6.00,50),(7,3,'Caffetin',0,3.00,50),(8,3,'Paracetamol',0,2.60,20);
 /*!40000 ALTER TABLE `lijek` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,9 +196,12 @@ DROP TABLE IF EXISTS `racun`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `racun` (
   `RacunId` int(11) NOT NULL AUTO_INCREMENT,
+  `OsiguranikId` int(11) NOT NULL,
   `Iznos` decimal(10,2) DEFAULT NULL,
   `DatumIzdavanja` date DEFAULT NULL,
-  PRIMARY KEY (`RacunId`)
+  PRIMARY KEY (`RacunId`),
+  KEY `fk_racun_osiguranik1_idx` (`OsiguranikId`),
+  CONSTRAINT `fk_racun_osiguranik1` FOREIGN KEY (`OsiguranikId`) REFERENCES `osiguranik` (`OsiguranikId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -220,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-10 14:23:15
+-- Dump completed on 2019-10-12 11:12:36

@@ -214,11 +214,22 @@ namespace Apoteka.Models
             {
                 entity.ToTable("racun", "apoteka");
 
+                entity.HasIndex(e => e.OsiguranikId)
+                    .HasName("fk_racun_osiguranik1_idx");
+
                 entity.Property(e => e.RacunId).HasColumnType("int(11)");
 
                 entity.Property(e => e.DatumIzdavanja).HasColumnType("date");
 
                 entity.Property(e => e.Iznos).HasColumnType("decimal(10,2)");
+
+                entity.Property(e => e.OsiguranikId).HasColumnType("int(11)");
+
+                entity.HasOne(d => d.Osiguranik)
+                    .WithMany(p => p.Racun)
+                    .HasForeignKey(d => d.OsiguranikId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_racun_osiguranik1");
             });
         }
     }
