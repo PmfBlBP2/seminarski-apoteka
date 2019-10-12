@@ -99,47 +99,16 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `apoteka`.`osiguranik`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `apoteka`.`osiguranik` ;
-
-CREATE TABLE IF NOT EXISTS `apoteka`.`osiguranik` (
-  `OsiguranikId` INT(11) NOT NULL AUTO_INCREMENT,
-  `JMBG` VARCHAR(45) NULL DEFAULT NULL,
-  `Ime` VARCHAR(45) NULL DEFAULT NULL,
-  `Prezime` VARCHAR(45) NULL DEFAULT NULL,
-  `GradId` INT(11) NOT NULL,
-  `Adresa` VARCHAR(45) NULL DEFAULT NULL,
-  `Broj telefona` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`OsiguranikId`),
-  INDEX `fk_osiguranik_grad_idx` (`GradId` ASC),
-  CONSTRAINT `fk_osiguranik_grad`
-    FOREIGN KEY (`GradId`)
-    REFERENCES `apoteka`.`grad` (`GradId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 6
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
 -- Table `apoteka`.`racun`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `apoteka`.`racun` ;
 
 CREATE TABLE IF NOT EXISTS `apoteka`.`racun` (
   `RacunId` INT(11) NOT NULL AUTO_INCREMENT,
-  `OsiguranikId` INT(11) NOT NULL,
   `Iznos` DECIMAL(10,2) NULL DEFAULT NULL,
   `DatumIzdavanja` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`RacunId`),
-  INDEX `fk_racun_osiguranik1_idx` (`OsiguranikId` ASC),
-  CONSTRAINT `fk_racun_osiguranik1`
-    FOREIGN KEY (`OsiguranikId`)
-    REFERENCES `apoteka`.`osiguranik` (`OsiguranikId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `JMBG` VARCHAR(45) NULL,
+  PRIMARY KEY (`RacunId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -168,6 +137,31 @@ CREATE TABLE IF NOT EXISTS `apoteka`.`kupovina` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `apoteka`.`osiguranik`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `apoteka`.`osiguranik` ;
+
+CREATE TABLE IF NOT EXISTS `apoteka`.`osiguranik` (
+  `OsiguranikId` INT(11) NOT NULL AUTO_INCREMENT,
+  `JMBG` VARCHAR(45) NULL DEFAULT NULL,
+  `Ime` VARCHAR(45) NULL DEFAULT NULL,
+  `Prezime` VARCHAR(45) NULL DEFAULT NULL,
+  `GradId` INT(11) NOT NULL,
+  `Adresa` VARCHAR(45) NULL DEFAULT NULL,
+  `Broj telefona` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`OsiguranikId`),
+  INDEX `fk_osiguranik_grad_idx` (`GradId` ASC),
+  CONSTRAINT `fk_osiguranik_grad`
+    FOREIGN KEY (`GradId`)
+    REFERENCES `apoteka`.`grad` (`GradId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = latin1;
 
 

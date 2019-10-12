@@ -196,13 +196,11 @@ DROP TABLE IF EXISTS `racun`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `racun` (
   `RacunId` int(11) NOT NULL AUTO_INCREMENT,
-  `OsiguranikId` int(11) NOT NULL,
   `Iznos` decimal(10,2) DEFAULT NULL,
   `DatumIzdavanja` date DEFAULT NULL,
-  PRIMARY KEY (`RacunId`),
-  KEY `fk_racun_osiguranik1_idx` (`OsiguranikId`),
-  CONSTRAINT `fk_racun_osiguranik1` FOREIGN KEY (`OsiguranikId`) REFERENCES `osiguranik` (`OsiguranikId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `JMBG` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`RacunId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,6 +209,7 @@ CREATE TABLE `racun` (
 
 LOCK TABLES `racun` WRITE;
 /*!40000 ALTER TABLE `racun` DISABLE KEYS */;
+INSERT INTO `racun` VALUES (1,0.00,NULL,NULL),(2,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `racun` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -223,4 +222,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-12 11:12:36
+-- Dump completed on 2019-10-12 13:17:52
