@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Apoteka.Models
 {
@@ -7,6 +8,9 @@ namespace Apoteka.Models
     {
         public int RacunId { get; set; }
         public int LijekId { get; set; }
+
+        [Required(ErrorMessage ="Polje Kolicina je obavezno!")]
+        [RegularExpression("([0-9]+)",ErrorMessage ="Unesite cijeli broj")]
         public int? Kolicina { get; set; }
         public decimal? Iznos { get; set; }
 

@@ -12,24 +12,23 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RacunId" class="control-label"></label>
-                <select asp-for="RacunId" class ="form-control" asp-items="ViewBag.RacunId"></select>
-            </div>
+            <input type="hidden" asp-for="RacunId" />
             <div class="form-group">
                 <label asp-for="LijekId" class="control-label"></label>
-                <select asp-for="LijekId" class ="form-control" asp-items="ViewBag.LijekId"></select>
+                <select asp-for="LijekId" class="form-control" asp-items="ViewBag.LijekId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Kolicina" class="control-label"></label>
                 <input asp-for="Kolicina" class="form-control" />
                 <span asp-validation-for="Kolicina" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Iznos" class="control-label"></label>
-                <input asp-for="Iznos" class="form-control" />
-                <span asp-validation-for="Iznos" class="text-danger"></span>
-            </div>
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+            {
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+                </div>
+            }
+           
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -43,4 +42,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   
 }

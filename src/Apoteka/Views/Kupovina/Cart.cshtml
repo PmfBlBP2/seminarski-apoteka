@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Apoteka.Models.Kupovina>
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h1>Korpa</h1>
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lijek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kolicina)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Iznos)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lijek.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kolicina)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Iznos)
+            </td>
+            <td>
+                @Html.ActionLink(
+                    "Obrisi",
+                    "RemoveLijek",
+                    "Kupovina",
+                    new { racunId = item.RacunId, lijekId = item.LijekId },
+                    new { onclick = "return confirm('Da li sigurni da zelite da obrisete?');" })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="float-right w-50">
+    <dl class="row">
+        <dt class="col-sm-2">
+            Ukupno
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.Iznos
+        </dd>
+    </dl>
+</div>
+
+<a class="btn btn-outline-primary" href="@Url.Action("Create","Kupovina", new { racunId = ViewBag.RacunId })">Dodaj novi lijek</a>
+
+<a class="btn btn-outline-success" href="@Url.Action("Index","Racun")">Zavrsi kupovinu</a>

@@ -12,6 +12,7 @@ namespace Apoteka.Controllers
     public class KupovinaController : Controller
     {
         private readonly ApotekaContext _context;
+        private decimal? popust = (decimal)0.25;
 
         public KupovinaController(ApotekaContext context)
         {
@@ -22,6 +23,18 @@ namespace Apoteka.Controllers
         public async Task<IActionResult> Index()
         {
             var apotekaContext = _context.Kupovina.Include(k => k.Lijek).Include(k => k.Racun);
+            return View(await apotekaContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Cart(int? racunId)
+        {
+            var apotekaContext = _context.Kupovina
+                .Include(k => k.Lijek)
+                .Include(k => k.Racun)
+                .Where(x => x.RacunId == racunId);
+            ViewBag.RacunId = racunId;
+            var racun = await _context.Racun.FindAsync(racunId);
+            ViewBag.Iznos = racun.Iznos;
             return View(await apotekaContext.ToListAsync());
         }
 
@@ -46,9 +59,9 @@ namespace Apoteka.Controllers
         }
 
         // GET: Kupovina/Create
-        public IActionResult Create()
+        public IActionResult Create(int? racunId)
         {
-            ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "LijekId");
+            ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "Naziv");
             ViewData["RacunId"] = new SelectList(_context.Racun, "RacunId", "RacunId");
             return View();
         }
@@ -58,17 +71,112 @@ namespace Apoteka.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RacunId,LijekId,Kolicina,Iznos")] Kupovina kupovina)
+        public async Task<IActionResult> Create(int racunId, [Bind("LijekId,Kolicina,Iznos")] Kupovina kupovina)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(kupovina);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var staraKupovina = await _context.Kupovina.FindAsync(racunId, kupovina.LijekId);
+                var lijek = await _context.Lijek.FindAsync(kupovina.LijekId);
+                var racun = await _context.Racun.FindAsync(racunId);
+                var osiguranikJmbg = _context.Osiguranik
+                    .Where(x => x.Jmbg == racun.Jmbg)
+                    .Select(x => x.Jmbg)
+                    .FirstOrDefault();
+
+                if (staraKupovina != null)
+                {
+                    if (lijek.Kolicina >= kupovina.Kolicina)
+                    {
+                        decimal cijena = (decimal)(kupovina.Kolicina * lijek.Cijena);
+
+                        if (lijek.NaRecept != 0 && osiguranikJmbg != null)
+                        {
+                            staraKupovina.Iznos += cijena - cijena * popust;
+                            racun.Iznos += (cijena - cijena * popust);
+                            _context.Update(racun);
+                        }
+                        else
+                        {
+                            staraKupovina.Iznos += cijena;
+                            racun.Iznos += cijena;
+                            _context.Update(racun);
+                        }
+
+                        staraKupovina.Kolicina += kupovina.Kolicina;
+                        _context.Update(staraKupovina);
+
+
+                        lijek.Kolicina -= kupovina.Kolicina;
+                        _context.Update(lijek);
+
+
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Cart", "Kupovina", new { racunId = staraKupovina.RacunId });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Error", $"Broj lijekova na stanju je: {lijek.Kolicina}");
+                    }
+
+                }
+                else
+                {
+                    kupovina.RacunId = racunId;
+
+                    if (lijek.Kolicina >= kupovina.Kolicina)
+                    {
+                        decimal cijena = (decimal)(kupovina.Kolicina * lijek.Cijena);
+
+                        if (lijek.NaRecept != 0 && osiguranikJmbg != null)
+                        {
+                            kupovina.Iznos = cijena - cijena * popust;
+                            racun.Iznos += (cijena - cijena * popust);
+                            _context.Update(racun);
+                        }
+                        else
+                        {
+                            kupovina.Iznos = cijena;
+                            racun.Iznos += cijena;
+                            _context.Update(racun);
+                        }
+
+                        _context.Add(kupovina);
+
+
+                        lijek.Kolicina -= kupovina.Kolicina;
+                        _context.Update(lijek);
+
+
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Cart", "Kupovina", new { racunId = kupovina.RacunId });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Error", $"Broj lijekova na stanju je: {lijek.Kolicina}");
+                    }
+
+                }
             }
-            ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "LijekId", kupovina.LijekId);
+            ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "Naziv", kupovina.LijekId);
             ViewData["RacunId"] = new SelectList(_context.Racun, "RacunId", "RacunId", kupovina.RacunId);
             return View(kupovina);
+        }
+
+        public async Task<IActionResult> RemoveLijek(int racunId, int lijekId)
+        {
+            var kupovina = await _context.Kupovina.FindAsync(racunId, lijekId);
+            var lijek = await _context.Lijek.FindAsync(lijekId);
+            var racun = await _context.Racun.FindAsync(racunId);
+
+            lijek.Kolicina += kupovina.Kolicina;
+            _context.Update(lijek);
+
+            racun.Iznos -= kupovina.Iznos;
+            _context.Update(racun);
+
+            _context.Kupovina.Remove(kupovina);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Cart", "Kupovina", new { racunId = kupovina.RacunId });
         }
 
         // GET: Kupovina/Edit/5
@@ -84,7 +192,7 @@ namespace Apoteka.Controllers
             {
                 return NotFound();
             }
-            ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "LijekId", kupovina.LijekId);
+            ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "Naziv", kupovina.LijekId);
             ViewData["RacunId"] = new SelectList(_context.Racun, "RacunId", "RacunId", kupovina.RacunId);
             return View(kupovina);
         }
@@ -121,7 +229,7 @@ namespace Apoteka.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "LijekId", kupovina.LijekId);
+            ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "Naziv", kupovina.LijekId);
             ViewData["RacunId"] = new SelectList(_context.Racun, "RacunId", "RacunId", kupovina.RacunId);
             return View(kupovina);
         }
