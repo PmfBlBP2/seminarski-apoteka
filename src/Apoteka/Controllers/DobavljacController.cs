@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Apoteka.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Apoteka.Controllers
 {
@@ -44,6 +45,7 @@ namespace Apoteka.Controllers
             return View(dobavljac);
         }
 
+        [Authorize]
         // GET: Dobavljac/Create
         public IActionResult Create()
         {
@@ -51,6 +53,7 @@ namespace Apoteka.Controllers
             return View();
         }
 
+        [Authorize]
         // POST: Dobavljac/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -68,6 +71,7 @@ namespace Apoteka.Controllers
             return View(dobavljac);
         }
 
+        [Authorize]
         // GET: Dobavljac/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -90,6 +94,7 @@ namespace Apoteka.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("DobavljacId,GradId,Naziv,Adresa,Telefon,EMail")] Dobavljac dobavljac)
         {
             if (id != dobavljac.DobavljacId)
@@ -122,6 +127,7 @@ namespace Apoteka.Controllers
         }
 
         // GET: Dobavljac/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,6 +149,7 @@ namespace Apoteka.Controllers
         // POST: Dobavljac/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dobavljac = await _context.Dobavljac.FindAsync(id);

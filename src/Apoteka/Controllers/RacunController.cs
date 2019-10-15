@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Apoteka.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Apoteka.Controllers
 {
@@ -43,6 +44,7 @@ namespace Apoteka.Controllers
         }
 
         // GET: Racun/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +55,7 @@ namespace Apoteka.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("RacunId,Iznos,DatumIzdavanja,Jmbg")] Racun racun)
         {
             if (ModelState.IsValid)
@@ -67,6 +70,7 @@ namespace Apoteka.Controllers
         }
 
         // GET: Racun/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,6 +91,7 @@ namespace Apoteka.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("RacunId,Iznos,DatumIzdavanja,Jmbg")] Racun racun)
         {
             if (id != racun.RacunId)
@@ -118,6 +123,7 @@ namespace Apoteka.Controllers
         }
 
         // GET: Racun/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +144,7 @@ namespace Apoteka.Controllers
         // POST: Racun/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var racun = await _context.Racun.FindAsync(id);

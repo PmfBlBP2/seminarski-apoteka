@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Apoteka.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Apoteka.Controllers
 {
@@ -39,6 +40,7 @@ namespace Apoteka.Controllers
             return View(await apotekaContext.ToListAsync());
         }
 
+        [Authorize]
         public async Task<IActionResult> Cart(int? racunId)
         {
             var apotekaContext = _context.Kupovina
@@ -47,6 +49,10 @@ namespace Apoteka.Controllers
                 .Where(x => x.RacunId == racunId);
             ViewBag.RacunId = racunId;
             var racun = await _context.Racun.FindAsync(racunId);
+            if (racun == null)
+            {
+                return NotFound();
+            }
             ViewBag.Iznos = racun.Iznos;
             return View(await apotekaContext.ToListAsync());
         }
@@ -72,6 +78,7 @@ namespace Apoteka.Controllers
         }
 
         // GET: Kupovina/Create
+        [Authorize]
         public IActionResult Create(int? racunId)
         {
             ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "Naziv");
@@ -84,6 +91,7 @@ namespace Apoteka.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(int racunId, [Bind("LijekId,Kolicina,Iznos")] Kupovina kupovina)
         {
             if (ModelState.IsValid)
@@ -175,6 +183,7 @@ namespace Apoteka.Controllers
             return View(kupovina);
         }
 
+        [Authorize]
         public async Task<IActionResult> RemoveLijek(int racunId, int lijekId)
         {
             var kupovina = await _context.Kupovina.FindAsync(racunId, lijekId);
@@ -192,6 +201,7 @@ namespace Apoteka.Controllers
             return RedirectToAction("Cart", "Kupovina", new { racunId = kupovina.RacunId });
         }
 
+        [Authorize]
         public async Task<ActionResult> Discard(int? racunId)
         {
             if (racunId == null)
@@ -224,6 +234,7 @@ namespace Apoteka.Controllers
         }
 
         // GET: Kupovina/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -246,6 +257,7 @@ namespace Apoteka.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("RacunId,LijekId,Kolicina,Iznos")] Kupovina kupovina)
         {
             if (id != kupovina.RacunId)
@@ -279,6 +291,7 @@ namespace Apoteka.Controllers
         }
 
         // GET: Kupovina/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -301,6 +314,7 @@ namespace Apoteka.Controllers
         // POST: Kupovina/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var kupovina = await _context.Kupovina.FindAsync(id);
