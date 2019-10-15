@@ -32,7 +32,7 @@ CREATE TABLE `dobavljac` (
   PRIMARY KEY (`DobavljacId`),
   KEY `fk_dobavljac_grad1_idx` (`GradId`),
   CONSTRAINT `fk_dobavljac_grad1` FOREIGN KEY (`GradId`) REFERENCES `grad` (`GradId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +56,7 @@ CREATE TABLE `drzava` (
   `DrzavaId` int(11) NOT NULL AUTO_INCREMENT,
   `Naziv` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`DrzavaId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `grad` (
   PRIMARY KEY (`GradId`),
   KEY `fk_grad_drzava1_idx` (`DrzavaId`),
   CONSTRAINT `fk_grad_drzava1` FOREIGN KEY (`DrzavaId`) REFERENCES `drzava` (`DrzavaId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,6 +123,7 @@ CREATE TABLE `kupovina` (
 
 LOCK TABLES `kupovina` WRITE;
 /*!40000 ALTER TABLE `kupovina` DISABLE KEYS */;
+INSERT INTO `kupovina` VALUES (7,1,2,21.40),(7,7,2,6.00),(10,1,2,21.40),(11,1,2,21.40);
 /*!40000 ALTER TABLE `kupovina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +144,7 @@ CREATE TABLE `lijek` (
   PRIMARY KEY (`LijekId`),
   KEY `fk_lijek_dobavljac1_idx` (`DobavljacId`),
   CONSTRAINT `fk_lijek_dobavljac1` FOREIGN KEY (`DobavljacId`) REFERENCES `dobavljac` (`DobavljacId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +153,7 @@ CREATE TABLE `lijek` (
 
 LOCK TABLES `lijek` WRITE;
 /*!40000 ALTER TABLE `lijek` DISABLE KEYS */;
-INSERT INTO `lijek` VALUES (1,1,'Otol H',1,10.70,50),(2,3,'Pholcodin',1,18.90,30),(3,4,'Chloramphenicol',1,4.00,50),(4,4,'Pantenol',0,5.40,50),(5,2,'Probiotik',0,16.00,30),(6,1,'Ibuprofen',1,6.00,50),(7,3,'Caffetin',0,3.00,50),(8,3,'Paracetamol',0,2.60,20);
+INSERT INTO `lijek` VALUES (1,1,'Otol H',1,10.70,44),(2,3,'Pholcodin',1,18.90,30),(3,4,'Chloramphenicol',1,4.00,50),(4,4,'Pantenol',0,5.40,50),(5,2,'Probiotik',0,16.00,30),(6,1,'Ibuprofen',1,6.00,50),(7,3,'Caffetin',0,3.00,48),(8,3,'Paracetamol',0,2.60,20);
 /*!40000 ALTER TABLE `lijek` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,10 +198,10 @@ DROP TABLE IF EXISTS `racun`;
 CREATE TABLE `racun` (
   `RacunId` int(11) NOT NULL AUTO_INCREMENT,
   `Iznos` decimal(10,2) DEFAULT NULL,
-  `DatumIzdavanja` date DEFAULT NULL,
+  `DatumIzdavanja` datetime DEFAULT NULL,
   `JMBG` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`RacunId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +210,7 @@ CREATE TABLE `racun` (
 
 LOCK TABLES `racun` WRITE;
 /*!40000 ALTER TABLE `racun` DISABLE KEYS */;
-INSERT INTO `racun` VALUES (1,0.00,NULL,NULL),(2,NULL,NULL,NULL);
+INSERT INTO `racun` VALUES (2,NULL,NULL,NULL),(3,0.00,'2019-10-12 00:00:00',NULL),(4,0.00,'2019-10-12 00:00:00','0805996105030'),(5,0.00,'2019-10-12 00:00:00','0805996105030'),(6,0.00,'2019-10-12 00:00:00',NULL),(7,27.40,'2019-10-13 00:00:00','0805996105030'),(8,0.00,'2019-10-13 00:00:00',NULL),(9,0.00,'2019-10-13 00:00:00','0805996105030'),(10,21.40,'2019-10-13 00:00:00','0805996105030'),(11,21.40,'2019-10-13 00:00:00','0805996105030'),(12,0.00,'2019-10-13 00:00:00',NULL);
 /*!40000 ALTER TABLE `racun` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -222,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-12 13:17:52
+-- Dump completed on 2019-10-15 10:11:23
