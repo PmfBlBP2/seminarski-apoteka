@@ -216,7 +216,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.RacunId).HasColumnType("int(11)");
 
-                entity.Property(e => e.DatumIzdavanja).HasColumnType("date");
+                entity.Property(e => e.DatumIzdavanja).HasColumnType("datetime");
 
                 entity.Property(e => e.Iznos).HasColumnType("decimal(10,2)");
 

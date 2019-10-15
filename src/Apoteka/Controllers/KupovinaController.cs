@@ -20,9 +20,22 @@ namespace Apoteka.Controllers
         }
 
         // GET: Kupovina
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? racunId)
         {
-            var apotekaContext = _context.Kupovina.Include(k => k.Lijek).Include(k => k.Racun);
+            if (racunId == null)
+            {
+                return NotFound();
+            }
+            var apotekaContext = _context.Kupovina.Include(k => k.Lijek).Include(k => k.Racun).Where(x=> x.RacunId==racunId);
+            ViewBag.RacunId = racunId;
+
+            var racun = await _context.Racun.FindAsync(racunId);
+            if(racun==null)
+            {
+                return NotFound();
+            }
+            ViewBag.Iznos = racun.Iznos;
+
             return View(await apotekaContext.ToListAsync());
         }
 
@@ -177,6 +190,37 @@ namespace Apoteka.Controllers
             _context.Kupovina.Remove(kupovina);
             await _context.SaveChangesAsync();
             return RedirectToAction("Cart", "Kupovina", new { racunId = kupovina.RacunId });
+        }
+
+        public async Task<ActionResult> Discard(int? racunId)
+        {
+            if (racunId == null)
+            {
+                return NotFound();
+            }
+
+            var kupovina = await _context.Kupovina.Include(k => k.Lijek).Where(m => m.RacunId == racunId).ToListAsync();
+            if (kupovina == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var item in kupovina)
+            {
+                var jednaKupovina = await _context.Kupovina.FindAsync(racunId, item.LijekId);
+                var lijek = await _context.Lijek.FindAsync(item.LijekId);
+
+                lijek.Kolicina += jednaKupovina.Kolicina;
+                _context.Update(lijek);
+
+                _context.Kupovina.Remove(jednaKupovina);
+            }
+
+            var racun = await _context.Racun.FindAsync(racunId);
+            _context.Remove(racun);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Kupovina/Edit/5

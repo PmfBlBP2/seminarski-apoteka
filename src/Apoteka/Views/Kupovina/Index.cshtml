@@ -1,53 +1,49 @@
 ﻿@model IEnumerable<Apoteka.Models.Kupovina>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pregled racuna";
 }
 
-<h1>Index</h1>
+<h1>Pregled racuna</h1>
+<p></p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lijek)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Kolicina)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Iznos)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lijek)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Racun)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kolicina)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Iznos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lijek.LijekId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Racun.RacunId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lijek.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kolicina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iznos)
+                </td>
+            </tr>
+        }
+
     </tbody>
 </table>
+<div class="row">
+    <div class="col-8">
+        <a href="@Url.Action("Index","Racun")">Nazad na pregled svih racuna</a>
+    </div>
+    <div class="col-4">
+        <strong>Ukupno: </strong> @ViewBag.Iznos KM
+    </div>
+</div>

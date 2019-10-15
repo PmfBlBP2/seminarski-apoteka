@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<Apoteka.Models.Racun>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pregled racuna";
 }
 
-<h1>Index</h1>
+<a class="btn btn-primary" asp-area="" asp-controller="Racun" asp-action="Create">Dodaj novu kupovinu</a>
+<p></p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -18,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Iznos)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DatumIzdavanja)
+                Datum i vrijeme izdavanja
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Jmbg)
@@ -27,26 +25,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RacunId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Iznos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumIzdavanja)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Jmbg)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RacunId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RacunId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RacunId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RacunId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iznos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumIzdavanja)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jmbg)
+                </td>
+                <td>
+                    <a href="@Url.Action("Index", "Kupovina", new { racunId = item.RacunId} )">Pregled</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
