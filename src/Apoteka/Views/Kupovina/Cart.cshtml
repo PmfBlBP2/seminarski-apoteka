@@ -13,10 +13,10 @@
                 @Html.DisplayNameFor(model => model.Lijek)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Kolicina)
+                Količina
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Iznos)
+                @Html.DisplayNameFor(model => model.Iznos) u KM
             </th>
             <th></th>
         </tr>
@@ -36,11 +36,11 @@
             </td>
             <td>
                 @Html.ActionLink(
-                    "Obrisi",
+                    "Obriši",
                     "RemoveLijek",
                     "Kupovina",
                     new { racunId = item.RacunId, lijekId = item.LijekId },
-                    new { onclick = "return confirm('Da li sigurni da zelite da obrisete?');" })
+                    new { onclick = "return confirm('Da li sigurni da želite da obrišete?');" })
             </td>
         </tr>
         }
@@ -51,10 +51,10 @@
     <div class="col-7">
         <a class="btn btn-outline-primary" href="@Url.Action("Create","Kupovina", new { racunId = ViewBag.RacunId })">Dodaj novi lijek</a>
 
-        <a class="btn btn-outline-success" href="@Url.Action("Index","Racun")">Zavrsi kupovinu</a>
+        <a class="btn btn-outline-success" href="@Url.Action("Index","Racun")">Završi kupovinu</a>
 
         <a class="btn btn-outline-danger" href="@Url.Action("Discard","Kupovina", new { racunId=ViewBag.RacunId})"
-        onclick = "return confirm('Da li sigurni da zelite da odustanete od kupovine?');">Odustani od kupovine</a>
+        onclick = "return confirm('Da li sigurni da želite da odustanete od kupovine?');">Odustani od kupovine</a>
     </div>
     <div class="col-5">
         <strong>Ukupno: </strong> @ViewBag.Iznos KM

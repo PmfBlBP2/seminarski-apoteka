@@ -7,7 +7,7 @@
 <h1>Gradovi</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Dodaj novi grad</a>
 </p>
 <table class="table">
     <thead>
@@ -16,10 +16,10 @@
                 @Html.DisplayNameFor(model => model.Naziv)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PostanskiBroj)
+                Poštanski broj
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Drzava)
+               Država
             </th>
             <th></th>
         </tr>
@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.Drzava.Naziv)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.GradId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GradId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GradId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.GradId">Izmijeni</a> |
+                <a asp-action="Details" asp-route-id="@item.GradId">Detalji</a> |
+                <a asp-action="Delete" asp-route-id="@item.GradId">Obriši</a>
             </td>
         </tr>
 }

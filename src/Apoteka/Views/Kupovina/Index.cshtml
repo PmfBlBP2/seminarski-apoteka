@@ -4,7 +4,7 @@
     ViewData["Title"] = "Pregled racuna";
 }
 
-<h1>Pregled racuna</h1>
+<h1>Pregled računa</h1>
 <p></p>
 
 <table class="table">
@@ -14,10 +14,10 @@
                 @Html.DisplayNameFor(model => model.Lijek)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Kolicina)
+               Količina
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Iznos)
+                @Html.DisplayNameFor(model => model.Iznos) u KM
             </th>
         </tr>
     </thead>
@@ -41,7 +41,7 @@
 </table>
 <div class="row">
     <div class="col-8">
-        <a href="@Url.Action("Index","Racun")">Nazad na pregled svih racuna</a>
+        <a href="@Url.Action("Index","Racun")">Nazad na pregled svih računa</a>
     </div>
     <div class="col-4">
         <strong>Ukupno: </strong> @ViewBag.Iznos KM

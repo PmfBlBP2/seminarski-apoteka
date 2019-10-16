@@ -83,6 +83,7 @@ namespace Apoteka.Controllers
         {
             ViewData["LijekId"] = new SelectList(_context.Lijek, "LijekId", "Naziv");
             ViewData["RacunId"] = new SelectList(_context.Racun, "RacunId", "RacunId");
+            ViewBag.RacunId = racunId;
             return View();
         }
 
