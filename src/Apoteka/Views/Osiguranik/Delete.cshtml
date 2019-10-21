@@ -1,0 +1,57 @@
+﻿@model Apoteka.Models.Osiguranik
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Brisanje</h1>
+
+<h3>Da li ste sigurni da želite obrisati ovog osiguranika?</h3>
+<div>
+    <h4>Osiguranik</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Jmbg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Jmbg)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Prezime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Prezime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Adresa)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Adresa)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BrojTelefona)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BrojTelefona)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Grad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Grad.GradId)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OsiguranikId" />
+        <input type="submit" value="Obriši" class="btn btn-danger" /> |
+        <a asp-action="Index">Nazad na listu</a>
+    </form>
+</div>

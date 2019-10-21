@@ -1,52 +1,103 @@
 ﻿@model Apoteka.Models.Lijek
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Lijek / Izmjena";
 }
-
-<h1>Izmijeni</h1>
-
-<h4>Lijek</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="LijekId" />
-            <div class="form-group">
-                <label asp-for="DobavljacId" class="control-label">Dobavljač</label>
-                <select asp-for="DobavljacId" class="form-control" asp-items="ViewBag.DobavljacId"></select>
-                <span asp-validation-for="DobavljacId" class="text-danger"></span>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Izmijena lijeka - @Model.Naziv</h4>
             </div>
-            <div class="form-group">
-                <label asp-for="Naziv" class="control-label"></label>
-                <input asp-for="Naziv" class="form-control" />
-                <span asp-validation-for="Naziv" class="text-danger"></span>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="LijekId" />
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="DobavljacId" class="bmd-label-floating">Dobavljač</label>
+                                <select asp-for="DobavljacId" class="form-control" asp-items="ViewBag.DobavljacId"></select>
+                                <span asp-validation-for="DobavljacId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Naziv" class="bmd-label-floating"></label>
+                                <input asp-for="Naziv" class="form-control" />
+                                <span asp-validation-for="Naziv" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="NaRecept" class="bmd-label-floating">Da li je lijek na recept?</label>
+                                <select asp-for="NaRecept" class="form-control">
+                                    <option value="0">Nije</option>
+                                    <option value="1">Jeste</option>
+                                </select>
+                                <span asp-validation-for="NaRecept" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Cijena" class="bmd-label-floating"></label>
+                                <input asp-for="Cijena" class="form-control" />
+                                <span asp-validation-for="Cijena" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Kolicina" class="bmd-label-floating">Količina</label>
+                                <input asp-for="Kolicina" class="form-control" />
+                                <span asp-validation-for="Kolicina" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <a class="btn btn-outline-primary" asp-action="Index">Nazad na listu</a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group pull-right">
+                                <input type="submit" value="Sačuvaj" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="NaRecept" class="control-label"></label>
-                <input asp-for="NaRecept" class="form-control" />
-                <span asp-validation-for="NaRecept" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cijena" class="control-label"></label>
-                <input asp-for="Cijena" class="form-control" />
-                <span asp-validation-for="Cijena" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Kolicina" class="control-label">Količina</label>
-                <input asp-for="Kolicina" class="form-control" />
-                <span asp-validation-for="Kolicina" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Sačuvaj" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Nazad na listu</a>
+    <div class="col-md-4">
+        <div class="card card-profile">
+            <div class="card-body">
+                <h4 class="card-title">@Model.Naziv</h4>
+                <p class="card-description">
+                    Dobavljač: @Model.Dobavljac.Naziv <br />
+                    Cijena: @Model.Cijena KM <br />
+                    Na stanju: @Model.Kolicina <br />
+                    @if (Model.NaRecept == 1)
+                    {
+                        <span>Na recept: Da</span>
+                    }
+                    else
+                    {
+                        <span>Na recept: Ne</span>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

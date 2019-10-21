@@ -1,48 +1,55 @@
 ﻿@model Apoteka.Models.Dobavljac
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Dobavljač / Detalji";
 }
 
-<h1>Detalji</h1>
-
-<div>
-    <h4>Dobavljač</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Naziv)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Naziv)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Adresa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Adresa)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefon)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telefon)
-        </dd>
-        <dt class = "col-sm-2">
-           E-Mail
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EMail)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Grad)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Grad.Naziv)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.DobavljacId">Izmijeni</a> |
-    <a asp-action="Index">Nazad na listu</a>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Detalji za dobavljača: @Model.Naziv</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Naziv)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Naziv)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Adresa)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Adresa)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Telefon)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Telefon)
+                    </dd>
+                    <dt class="col-sm-4">
+                        E-Mail
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.EMail)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Grad)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Grad.Naziv)
+                    </dd>
+                </dl>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@Model.DobavljacId">Izmijeni</a>
+                        <a class="btn btn-primary" asp-action="Index">Nazad na listu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

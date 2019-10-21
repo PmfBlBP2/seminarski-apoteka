@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Apoteka.Models.Osiguranik>
+
+@{
+    ViewData["Title"] = "Osiguranici";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Prikaz osiguranika iz baze</h4>
+                <h5 class="card-category">
+                    <a class="text-warning" asp-action="Create">Dodaj novog osiguranika</a>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Jmbg)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Prezime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Adresa)
+                                </th>
+                                <th>
+                                    Broj telefona
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Grad)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Jmbg)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Prezime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Adresa)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BrojTelefona)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Grad.Naziv)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.OsiguranikId" title="Izmijeni">
+                                            <i class="material-icons">create</i>
+                                        </a> |
+                                        <a asp-action="Details" asp-route-id="@item.OsiguranikId" title="Detalji">
+                                            <i class="material-icons">info</i>
+                                        </a> |
+                                        <a asp-action="Delete" asp-route-id="@item.OsiguranikId" title="Obriši">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
