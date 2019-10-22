@@ -1,57 +1,104 @@
 ﻿@model Apoteka.Models.Osiguranik
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Osiguranik / Izmjena";
 }
 
-<h1>Izmijeni</h1>
-
-<h4>Osiguranik</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OsiguranikId" />
-            <div class="form-group">
-                <label asp-for="Jmbg" class="control-label"></label>
-                <input asp-for="Jmbg" class="form-control" />
-                <span asp-validation-for="Jmbg" class="text-danger"></span>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Izmijena osiguranika sa JMBG - @Model.Jmbg</h4>
             </div>
-            <div class="form-group">
-                <label asp-for="Ime" class="control-label"></label>
-                <input asp-for="Ime" class="form-control" />
-                <span asp-validation-for="Ime" class="text-danger"></span>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="OsiguranikId" />
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Jmbg" class="bmd-label-floating"></label>
+                                <input asp-for="Jmbg" class="form-control" />
+                                <span asp-validation-for="Jmbg" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Ime" class="bmd-label-floating"></label>
+                                <input asp-for="Ime" class="form-control" />
+                                <span asp-validation-for="Ime" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Prezime" class="bmd-label-floating"></label>
+                                <input asp-for="Prezime" class="form-control" />
+                                <span asp-validation-for="Prezime" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="GradId" class="bmd-label-floating">Grad</label>
+                                <select asp-for="GradId" class="form-control" asp-items="ViewBag.GradId"></select>
+                                <span asp-validation-for="GradId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Adresa" class="bmd-label-floating"></label>
+                                <input asp-for="Adresa" class="form-control" />
+                                <span asp-validation-for="Adresa" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="BrojTelefona" class="bmd-label-floating"></label>
+                                <input asp-for="BrojTelefona" class="form-control" />
+                                <span asp-validation-for="BrojTelefona" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <a class="btn btn-outline-primary" asp-action="Index">Nazad na listu</a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group pull-right">
+                                <input type="submit" value="Sačuvaj" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Prezime" class="control-label"></label>
-                <input asp-for="Prezime" class="form-control" />
-                <span asp-validation-for="Prezime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GradId" class="control-label"></label>
-                <select asp-for="GradId" class="form-control" asp-items="ViewBag.GradId"></select>
-                <span asp-validation-for="GradId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adresa" class="control-label"></label>
-                <input asp-for="Adresa" class="form-control" />
-                <span asp-validation-for="Adresa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BrojTelefona" class="control-label"></label>
-                <input asp-for="BrojTelefona" class="form-control" />
-                <span asp-validation-for="BrojTelefona" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Sačuvaj" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Nazad na listu</a>
+    <div class="col-md-4">
+        <div class="card card-profile">
+            <div class="card-body">
+                <h4 class="card-title">@Model.Jmbg</h4>
+                <p class="card-description">
+                    Ime: @Model.Ime <br />
+                    Prezime: @Model.Prezime <br />
+                    Grad: @Model.Grad.Naziv <br />
+                    Adresa:  @Model.Adresa <br />
+                    Broj telefona:  @Model.BrojTelefona <br />
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

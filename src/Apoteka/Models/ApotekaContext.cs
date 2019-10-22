@@ -48,7 +48,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.Adresa)
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.EMail)
                     .HasColumnName("E-mail")
@@ -59,7 +59,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.Naziv)
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.Telefon)
                     .HasMaxLength(45)
@@ -80,7 +80,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.Naziv)
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
             });
 
             modelBuilder.Entity<Grad>(entity =>
@@ -96,7 +96,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.Naziv)
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.PostanskiBroj)
                     .HasMaxLength(45)
@@ -161,7 +161,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.Naziv)
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.HasOne(d => d.Dobavljac)
                     .WithMany(p => p.Lijek)
@@ -181,7 +181,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.Adresa)
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.BrojTelefona)
                     .HasColumnName("Broj telefona")
@@ -192,7 +192,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.Ime)
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.Jmbg)
                     .HasColumnName("JMBG")
@@ -201,7 +201,7 @@ namespace Apoteka.Models
 
                 entity.Property(e => e.Prezime)
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.HasOne(d => d.Grad)
                     .WithMany(p => p.Osiguranik)

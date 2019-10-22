@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `dobavljac`;
 CREATE TABLE `dobavljac` (
   `DobavljacId` int(11) NOT NULL AUTO_INCREMENT,
   `GradId` int(11) NOT NULL,
-  `Naziv` varchar(45) DEFAULT NULL,
+  `Naziv` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `Adresa` varchar(45) DEFAULT NULL,
   `Telefon` varchar(45) DEFAULT NULL,
   `E-mail` varchar(45) DEFAULT NULL,
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `drzava`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `drzava` (
   `DrzavaId` int(11) NOT NULL AUTO_INCREMENT,
-  `Naziv` varchar(45) DEFAULT NULL,
+  `Naziv` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`DrzavaId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `grad`;
 CREATE TABLE `grad` (
   `GradId` int(11) NOT NULL AUTO_INCREMENT,
   `DrzavaId` int(11) NOT NULL,
-  `Naziv` varchar(45) DEFAULT NULL,
+  `Naziv` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `PostanskiBroj` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`GradId`),
   KEY `fk_grad_drzava1_idx` (`DrzavaId`),
@@ -93,7 +93,7 @@ CREATE TABLE `grad` (
 
 LOCK TABLES `grad` WRITE;
 /*!40000 ALTER TABLE `grad` DISABLE KEYS */;
-INSERT INTO `grad` VALUES (1,1,'Banja Luka','78000'),(2,1,'Sarajevo','71000'),(3,1,'Mostar',NULL),(4,2,'Beograd',NULL),(5,3,'Skoplje',NULL),(6,2,'Novi Sad',NULL);
+INSERT INTO `grad` VALUES (1,1,'Banja Luka','78000'),(2,1,'Sarajevo','71000'),(3,1,'Mostar',NULL),(4,2,'Beograd',NULL),(5,3,'Skoplje','1000'),(6,2,'Novi Sad',NULL);
 /*!40000 ALTER TABLE `grad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +123,7 @@ CREATE TABLE `kupovina` (
 
 LOCK TABLES `kupovina` WRITE;
 /*!40000 ALTER TABLE `kupovina` DISABLE KEYS */;
-INSERT INTO `kupovina` VALUES (7,1,2,21.40),(7,7,2,6.00),(10,1,2,21.40),(11,1,2,21.40);
+INSERT INTO `kupovina` VALUES (7,1,2,21.40),(7,7,2,6.00),(10,1,2,21.40),(11,1,2,21.40),(14,1,1,10.65);
 /*!40000 ALTER TABLE `kupovina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +137,7 @@ DROP TABLE IF EXISTS `lijek`;
 CREATE TABLE `lijek` (
   `LijekId` int(11) NOT NULL AUTO_INCREMENT,
   `DobavljacId` int(11) NOT NULL,
-  `Naziv` varchar(45) DEFAULT NULL,
+  `Naziv` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `NaRecept` tinyint(4) DEFAULT NULL,
   `Cijena` decimal(10,2) DEFAULT NULL,
   `Kolicina` int(11) DEFAULT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE `lijek` (
 
 LOCK TABLES `lijek` WRITE;
 /*!40000 ALTER TABLE `lijek` DISABLE KEYS */;
-INSERT INTO `lijek` VALUES (1,1,'Otol H',1,10.70,44),(2,3,'Pholcodin',1,18.90,30),(3,4,'Chloramphenicol',1,4.00,50),(4,4,'Pantenol',0,5.40,50),(5,2,'Probiotik',0,16.00,30),(6,1,'Ibuprofen',1,6.00,50),(7,3,'Caffetin',0,3.00,48),(8,3,'Paracetamol',0,2.60,20);
+INSERT INTO `lijek` VALUES (1,1,'Otol H',1,10.65,43),(2,3,'Pholcodin',1,18.90,30),(3,4,'Chloramphenicol',1,4.00,50),(4,4,'Pantenol',0,5.40,50),(5,2,'Probiotik',0,16.00,30),(6,1,'Ibuprofen',1,6.00,50),(7,3,'Caffetin',0,3.00,48),(8,3,'Paracetamol',0,2.60,20);
 /*!40000 ALTER TABLE `lijek` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,15 +167,15 @@ DROP TABLE IF EXISTS `osiguranik`;
 CREATE TABLE `osiguranik` (
   `OsiguranikId` int(11) NOT NULL AUTO_INCREMENT,
   `JMBG` varchar(45) DEFAULT NULL,
-  `Ime` varchar(45) DEFAULT NULL,
-  `Prezime` varchar(45) DEFAULT NULL,
+  `Ime` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `Prezime` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `GradId` int(11) NOT NULL,
-  `Adresa` varchar(45) DEFAULT NULL,
+  `Adresa` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `Broj telefona` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`OsiguranikId`),
   KEY `fk_osiguranik_grad_idx` (`GradId`),
   CONSTRAINT `fk_osiguranik_grad` FOREIGN KEY (`GradId`) REFERENCES `grad` (`GradId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `osiguranik` (
 
 LOCK TABLES `osiguranik` WRITE;
 /*!40000 ALTER TABLE `osiguranik` DISABLE KEYS */;
-INSERT INTO `osiguranik` VALUES (1,'2705965105436','Srdjan','Jovic',1,'Ive Andrica 56',NULL),(2,'1209987105236','Marija','Petric',1,'Krfska 65',NULL),(3,'3006995105232','Jovan','Lucic',2,'Gavrila Principa 12',NULL),(4,'0904978105462','Jelica','Stevic',1,'Cara Lazara 13',NULL),(5,'1103998105478','Nikola','Markovic',1,'Carice Milice 12',NULL);
+INSERT INTO `osiguranik` VALUES (1,'2705965105436','Srdjan','Jovic',1,'Ive Andrica 56',NULL),(2,'1209987105236','Marija','Petric',1,'Krfska 65',NULL),(3,'3006995105232','Jovan','Lucic',2,'Gavrila Principa 12',NULL),(4,'0904978105462','Jelica','Stevic',1,'Cara Lazara 13',NULL),(5,'1103998105478','Nikola','Markovic',1,'Carice Milice 12',NULL),(6,'0805996105030','Tanja','Gromilic',1,NULL,NULL);
 /*!40000 ALTER TABLE `osiguranik` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +201,7 @@ CREATE TABLE `racun` (
   `DatumIzdavanja` datetime DEFAULT NULL,
   `JMBG` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`RacunId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +210,7 @@ CREATE TABLE `racun` (
 
 LOCK TABLES `racun` WRITE;
 /*!40000 ALTER TABLE `racun` DISABLE KEYS */;
-INSERT INTO `racun` VALUES (2,NULL,NULL,NULL),(3,0.00,'2019-10-12 00:00:00',NULL),(4,0.00,'2019-10-12 00:00:00','0805996105030'),(5,0.00,'2019-10-12 00:00:00','0805996105030'),(6,0.00,'2019-10-12 00:00:00',NULL),(7,27.40,'2019-10-13 00:00:00','0805996105030'),(8,0.00,'2019-10-13 00:00:00',NULL),(9,0.00,'2019-10-13 00:00:00','0805996105030'),(10,21.40,'2019-10-13 00:00:00','0805996105030'),(11,21.40,'2019-10-13 00:00:00','0805996105030'),(12,0.00,'2019-10-13 00:00:00',NULL);
+INSERT INTO `racun` VALUES (2,NULL,NULL,NULL),(3,0.00,'2019-10-12 00:00:00',NULL),(5,0.00,'2019-10-12 00:00:00','0805996105030'),(6,0.00,'2019-10-12 00:00:00',NULL),(7,27.40,'2019-10-13 00:00:00','0805996105030'),(8,0.00,'2019-10-13 00:00:00',NULL),(9,0.00,'2019-10-13 00:00:00','0805996105030'),(10,21.40,'2019-10-13 00:00:00','0805996105030'),(11,21.40,'2019-10-13 00:00:00','0805996105030'),(12,0.00,'2019-10-13 00:00:00',NULL),(13,0.00,'2019-10-15 00:00:00',NULL),(14,10.65,'2019-10-16 00:00:00',NULL);
 /*!40000 ALTER TABLE `racun` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -223,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-15 10:11:23
+-- Dump completed on 2019-10-22 11:43:20

@@ -1,46 +1,59 @@
 ﻿@model Apoteka.Models.Kupovina
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Kupovina / Dodavanje";
 }
 
-<h1>Dodavanje</h1>
-
-<h4>Kupovina</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="RacunId" />
-            <div class="form-group">
-                <label asp-for="LijekId" class="control-label"></label>
-                <select asp-for="LijekId" class="form-control" asp-items="ViewBag.LijekId"></select>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Dodaj novi lijek</h4>
             </div>
-            <div class="form-group">
-                <label asp-for="Kolicina" class="control-label">Količina</label>
-                <input asp-for="Kolicina" class="form-control" />
-                <span asp-validation-for="Kolicina" class="text-danger"></span>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="RacunId" />
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="LijekId" class="control-label"></label>
+                                <select asp-for="LijekId" class="form-control" asp-items="ViewBag.LijekId"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Kolicina" class="control-label">Količina</label>
+                                <input asp-for="Kolicina" class="form-control" />
+                                <span asp-validation-for="Kolicina" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong> @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group pull-right">
+                                <a class="btn btn-outline-danger"
+                                   href="@Url.Action("Cart","Kupovina", new { racunId = ViewBag.RacunId})">Odustani</a>
+                                <input type="submit" value="Dodaj" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
             </div>
-            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"].Errors.Count > 0)
-            {
-                <div class="alert alert-danger">
-                    <strong>Error!</strong> @ViewData.ModelState["Error"].Errors.First().ErrorMessage
-                </div>
-            }
-           
-        <div class="form-group">
-            <input type="submit" value="Dodaj" class="btn btn-primary" />
-            <a class="btn btn-outline-danger"
-               href="@Url.Action("Cart","Kupovina", new { racunId = ViewBag.RacunId})">Odustani</a>
         </div>
-        </form>
     </div>
 </div>
 
-
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-   
+
 }

@@ -47,7 +47,7 @@ namespace Apoteka.Controllers
         // GET: Osiguranik/Create
         public IActionResult Create()
         {
-            ViewData["GradId"] = new SelectList(_context.Grad, "GradId", "GradId");
+            ViewData["GradId"] = new SelectList(_context.Grad, "GradId", "Naziv");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace Apoteka.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GradId"] = new SelectList(_context.Grad, "GradId", "GradId", osiguranik.GradId);
+            ViewData["GradId"] = new SelectList(_context.Grad, "GradId", "Naziv", osiguranik.GradId);
             return View(osiguranik);
         }
 
@@ -81,7 +81,7 @@ namespace Apoteka.Controllers
             {
                 return NotFound();
             }
-            ViewData["GradId"] = new SelectList(_context.Grad, "GradId", "GradId", osiguranik.GradId);
+            ViewData["GradId"] = new SelectList(_context.Grad, "GradId", "Naziv", osiguranik.GradId);
             return View(osiguranik);
         }
 
@@ -117,7 +117,7 @@ namespace Apoteka.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GradId"] = new SelectList(_context.Grad, "GradId", "GradId", osiguranik.GradId);
+            ViewData["GradId"] = new SelectList(_context.Grad, "GradId", "Naziv", osiguranik.GradId);
             return View(osiguranik);
         }
 

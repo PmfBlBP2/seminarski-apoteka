@@ -1,36 +1,44 @@
 ﻿@model Apoteka.Models.Racun
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Račun / Detalji";
 }
 
-<h1>Detalji</h1>
-
-<div>
-    <h4>Racun</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Iznos)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Iznos)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DatumIzdavanja)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DatumIzdavanja)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Jmbg)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Jmbg)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.RacunId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Detalji za račun broj: @Model.RacunId</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Iznos)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Iznos)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Datum i vrijeme izdavanja
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.DatumIzdavanja)
+                    </dd>
+                    <dt class="col-sm-4">
+                        JMBG
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Jmbg)
+                    </dd>
+                    
+                </dl>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@Model.RacunId">Izmijeni</a>
+                        <a class="btn btn-primary" asp-action="Index">Nazad na listu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

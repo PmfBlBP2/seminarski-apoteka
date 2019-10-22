@@ -4,59 +4,71 @@
     ViewData["Title"] = "Cart";
 }
 
-<h1>Korpa</h1>
-<p></p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Lijek)
-            </th>
-            <th>
-                Količina
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Iznos) u KM
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lijek.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kolicina)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Iznos)
-            </td>
-            <td>
-                @Html.ActionLink(
-                    "Obriši",
-                    "RemoveLijek",
-                    "Kupovina",
-                    new { racunId = item.RacunId, lijekId = item.LijekId },
-                    new { onclick = "return confirm('Da li sigurni da želite da obrišete?');" })
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-
 <div class="row">
-    <div class="col-7">
-        <a class="btn btn-outline-primary" href="@Url.Action("Create","Kupovina", new { racunId = ViewBag.RacunId })">Dodaj novi lijek</a>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Korpa</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lijek)
+                                </th>
+                                <th>
+                                    Količina
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Iznos) u KM
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lijek.Naziv)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Kolicina)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Iznos)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Obriši", "RemoveLijek", "Kupovina",
+                                                            new { racunId = item.RacunId, lijekId = item.LijekId },
+                                                            new { onclick = "return confirm('Da li sigurni da želite da obrišete?');" })
+                                    </td>
 
-        <a class="btn btn-outline-success" href="@Url.Action("Index","Racun")">Završi kupovinu</a>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
 
-        <a class="btn btn-outline-danger" href="@Url.Action("Discard","Kupovina", new { racunId=ViewBag.RacunId})"
-        onclick = "return confirm('Da li sigurni da želite da odustanete od kupovine?');">Odustani od kupovine</a>
-    </div>
-    <div class="col-5">
-        <strong>Ukupno: </strong> @ViewBag.Iznos KM
+
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <a class="btn btn-outline-primary" href="@Url.Action("Create","Kupovina", new { racunId = ViewBag.RacunId })">Dodaj novi lijek</a>
+
+                        <a class="btn btn-outline-success" href="@Url.Action("Index","Racun")">Završi kupovinu</a>
+
+                        <a class="btn btn-outline-danger" href="@Url.Action("Discard","Kupovina", new { racunId=ViewBag.RacunId})"
+                           onclick="return confirm('Da li sigurni da želite da odustanete od kupovine?');">Odustani od kupovine</a>
+                    </div>
+                    <div class="col-5">
+                        <strong>Ukupno: </strong> @ViewBag.Iznos KM
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
