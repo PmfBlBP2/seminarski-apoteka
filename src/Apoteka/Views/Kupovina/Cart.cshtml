@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Apoteka.Models.Kupovina>
 
 @{
-    ViewData["Title"] = "Cart";
+    ViewData["Title"] = "Kupovina / Korpa";
 }
 
 <div class="row">
@@ -41,9 +41,10 @@
                                         @Html.DisplayFor(modelItem => item.Iznos)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Obriši", "RemoveLijek", "Kupovina",
-                                                            new { racunId = item.RacunId, lijekId = item.LijekId },
-                                                            new { onclick = "return confirm('Da li sigurni da želite da obrišete?');" })
+                                        <a href="@Url.Action("RemoveLijek", "Kupovina", new { racunId = item.RacunId, lijekId = item.LijekId })"
+                                           title="Obriši" onclick="return confirm('Da li sigurni da želite da obrišete?');">
+                                            <i class="material-icons">delete</i>
+                                        </a>
                                     </td>
 
                                 </tr>
@@ -53,17 +54,20 @@
 
 
                 </div>
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-7">
                         <a class="btn btn-outline-primary" href="@Url.Action("Create","Kupovina", new { racunId = ViewBag.RacunId })">Dodaj novi lijek</a>
 
-                        <a class="btn btn-outline-success" href="@Url.Action("Index","Racun")">Završi kupovinu</a>
+                        @if (ViewBag.brojElemenata != 0)
+                        {
+                            <a class="btn btn-outline-success" href="@Url.Action("Index","Racun")">Završi kupovinu</a>
+                        }
 
                         <a class="btn btn-outline-danger" href="@Url.Action("Discard","Kupovina", new { racunId=ViewBag.RacunId})"
                            onclick="return confirm('Da li sigurni da želite da odustanete od kupovine?');">Odustani od kupovine</a>
                     </div>
                     <div class="col-5">
-                        <strong>Ukupno: </strong> @ViewBag.Iznos KM
+                        <a style="font-size: 1.25rem; color: #9c27b0;"><strong>Ukupno: </strong> @ViewBag.Iznos KM</a>
                     </div>
                 </div>
             </div>

@@ -64,7 +64,7 @@ namespace Apoteka.Controllers
                 racun.DatumIzdavanja = DateTime.Today;
                 _context.Add(racun);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Kupovina", new { racunId = racun.RacunId });
+                return RedirectToAction("Cart", "Kupovina", new { racunId = racun.RacunId });
             }
             return View(racun);
         }

@@ -48,6 +48,11 @@ namespace Apoteka.Controllers
                 .Include(k => k.Racun)
                 .Where(x => x.RacunId == racunId);
             ViewBag.RacunId = racunId;
+
+            var brojElemenata = _context.Kupovina.Where(r => r.RacunId == racunId).Count();
+
+            ViewBag.brojElemenata = brojElemenata;
+
             var racun = await _context.Racun.FindAsync(racunId);
             if (racun == null)
             {
