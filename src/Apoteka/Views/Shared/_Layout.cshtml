@@ -65,6 +65,7 @@
                     </li>
                     @if (SignInManager.IsSignedIn(User))
                     {
+                        <hr style="margin-left: 15px; margin-right: 15px;" />
                         <li class="nav-item @((ViewContext.RouteData.Values["controller"]??"").ToString() == "Grad" ? "active" : "")">
                             <a class="nav-link" asp-action="Index" , asp-controller="Grad">
                                 <i class="material-icons">location_city</i>
@@ -143,11 +144,19 @@
                 </div>
             </nav>
             <!-- End Navbar -->
-            <div class="content" style="margin:0px;">
-                <div class="container-fluid">
-                    @RenderBody()
+            @if ((ViewContext.RouteData.Values["controller"] ?? "").ToString() == "Home")
+            {
+                @RenderBody()
+            }
+            else
+            {
+                <div class="content" style="margin:0px;">
+                    <div class="container-fluid">
+                        @RenderBody()
+                    </div>
                 </div>
-            </div>
+            }
+           
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="copyright float-left">

@@ -22,7 +22,8 @@ namespace Apoteka.Controllers
         // GET: Racun
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Racun.ToListAsync());
+            var racuni = await _context.Racun.OrderByDescending(r => r.RacunId).ToListAsync();
+            return View(racuni);
         }
 
         // GET: Racun/Details/5
@@ -61,7 +62,7 @@ namespace Apoteka.Controllers
             if (ModelState.IsValid)
             {
                 racun.Iznos = 0;
-                racun.DatumIzdavanja = DateTime.Today;
+                racun.DatumIzdavanja = DateTime.Now;
                 _context.Add(racun);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Cart", "Kupovina", new { racunId = racun.RacunId });

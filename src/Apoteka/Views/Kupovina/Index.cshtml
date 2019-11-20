@@ -1,49 +1,66 @@
 ﻿@model IEnumerable<Apoteka.Models.Kupovina>
 
 @{
-    ViewData["Title"] = "Pregled racuna";
+    ViewData["Title"] = "Račun / Detalji";
 }
 
-<h1>Pregled računa</h1>
-<p></p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Lijek)
-            </th>
-            <th>
-               Količina
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Iznos) u KM
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lijek.Naziv)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Kolicina)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Iznos)
-                </td>
-            </tr>
-        }
-
-    </tbody>
-</table>
 <div class="row">
-    <div class="col-8">
-        <a href="@Url.Action("Index","Racun")">Nazad na pregled svih računa</a>
-    </div>
-    <div class="col-4">
-        <strong>Ukupno: </strong> @ViewBag.Iznos KM
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Pregled računa broj @ViewBag.RacunId</h4>
+               
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lijek)
+                                </th>
+                                <th>
+                                    Količina
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Iznos) u KM
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lijek.Naziv)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Kolicina)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Iznos) KM
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="col-4">
+                    <a style="font-size: 1.25rem; color: #9c27b0;"><strong>Ukupno: </strong> @ViewBag.Iznos KM</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <a href="@Url.Action("Index","Racun")">Nazad na pregled svih računa</a>
+            </div>
+
+        </div>
     </div>
 </div>
+
+
